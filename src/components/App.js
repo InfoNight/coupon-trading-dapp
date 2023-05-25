@@ -35,12 +35,16 @@ const App = () => {
       setOpenUser(false);
     } else if (mode === WalletMode.STORE) {
       setOpenMain(false);
-      setOpenStore(true);
-      setOpenUser(false);
+      setTimeout(() => {
+        setOpenStore(true);
+        setOpenUser(false);
+      }, 1000);
     } else if (mode === WalletMode.USER) {
       setOpenMain(false);
-      setOpenStore(false);
-      setOpenUser(true);
+      setTimeout(() => {
+        setOpenStore(false);
+        setOpenUser(true);
+      }, 1000);;
     }
   }, [mode]);
 
@@ -110,7 +114,7 @@ const App = () => {
       </TransitionablePortal>
       <TransitionablePortal
         open={openStore}
-        transition={{ animation : "fade up", duration: 1000 }}
+        transition={{ animation : "fade up", duration: 500 }}
       >
         <Segment>
           <StoreMain walletAddress={walletAddress} />
@@ -118,7 +122,7 @@ const App = () => {
       </TransitionablePortal>
       <TransitionablePortal
         open={openUser}
-        transition={{ animation : "fade up", duration: 1000 }}
+        transition={{ animation : "fade up", duration: 500 }}
       >
         <Segment>
           <UserMain walletAddress={walletAddress} />
