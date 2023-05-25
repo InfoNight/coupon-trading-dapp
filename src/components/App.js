@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { WalletMode } from "../types";
 import StoreMain from "pages/StoreMain.js";
 import LoginButton from "components/LoginButton.js";
-import Banner from "components/Banner.js";
 import ModeSelector from "components/ModeSelector.js";
 import main_img from './test.jpeg'
 
