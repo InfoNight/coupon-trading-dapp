@@ -68,7 +68,7 @@ const App = () => {
         Start your own coupon trading business by minting your own NFTs! Connect
       </p>
       {mode === WalletMode.STORE ? (
-        <StoreMain />
+        <StoreMain walletAddress={walletAddress} />
       ) : mode === WalletMode.USER ? (
         <div> userMain </div>
       ) : (

@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone'
 import { pinFileToIPFS } from "../utils/pinata.js";
 
 
-const RegisterCouponBox = () => {
+const RegisterCouponBox = ({walletAddress}) => {
     const [couponType, setCouponType] = useState("");
     const [couponName, setCouponName] = useState("");
     const [image, setImage] = useState(null);
@@ -31,7 +31,8 @@ const RegisterCouponBox = () => {
     const onRegisterPressed = async () => {
         console.log(image)
         const file = new Blob([image], {type: 'image/jpeg'})
-        await pinFileToIPFS(file, couponType, couponName);
+        const hash = await pinFileToIPFS(file, walletAddress, couponType, couponName);
+        console.log(hash);
     };
 
     return (
