@@ -1,6 +1,6 @@
-import CouponList from "../components/CouponList.js";
-import MintCouponBox from "../components/MintCouponBox.js";
-import RegisterCouponBox from "../components/RegisterCouponBox.js";
+import CouponList from "components/CouponList.js";
+import MintCouponBox from "components/MintCouponBox.js";
+import RegisterCouponBox from "components/RegisterCouponBox.js";
 
 const StoreMain = ({walletAddress}) => {
     return (
