@@ -36,7 +36,7 @@ const getPinList = async (walletAddress) => {
         });
 };
 
-const pinFileToIPFS = async (file, walletAddress, couponType, couponName) => {
+const pinFileToIPFS = async (file, walletAddress, couponName, couponDescription) => {
     const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
     let data = new FormData();
     data.append('file', file);
@@ -44,7 +44,7 @@ const pinFileToIPFS = async (file, walletAddress, couponType, couponName) => {
         name: couponName,
         keyvalues: {
             'walletAddress': walletAddress,
-            'couponType': couponType,
+            'couponDescription': couponDescription,
         }
     }));
 

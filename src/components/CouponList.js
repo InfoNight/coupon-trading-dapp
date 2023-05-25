@@ -15,8 +15,6 @@ import {
 const CouponList = ({walletAddress}) => {
     const [couponList, setCouponList] = useState([]);
     const [numColumns, setNumColumns] = useState(1);
-    const [hovered, setHovered] = useState(false);
-    const [openRegister, setOpenRegister] = useState(false)
 
     useEffect(async () => {
         const response = await getPinList(walletAddress);
@@ -33,43 +31,7 @@ const CouponList = ({walletAddress}) => {
             <Grid.Row columns={1}>
             <Grid.Column>
                 <Header as='h2'>
-                    <Modal
-                        closeIcon
-                        open={openRegister}
-                        trigger={
-                            <Icon.Group size='big'
-                                onMouseOver={() => setHovered(true)} 
-                                onMouseLeave={() => setHovered(false)}
-                                style={{cursor: 'grabbing'}}
-                            >
-                                <Icon name='ticket' />
-                                {hovered ? (
-                                    <Icon corner loading name='add'/>
-                                ) : (
-                                    <Icon corner name='add'/>
-                                )}
-                            </Icon.Group>
-                        }
-                        onClose={() => setOpenRegister(false)}
-                        onOpen={() => setOpenRegister(true)}
-                        >
-                        <Header icon='archive' content='Archive Old Messages' />
-                        <Modal.Content>
-                            <p>
-                            Your inbox is getting full, would you like us to enable automatic
-                            archiving of old messages?
-                            </p>
-                        </Modal.Content>
-                        <Modal.Actions>
-                            <Button color='red' onClick={() => setOpenRegister(false)}>
-                            <Icon name='remove' /> No
-                            </Button>
-                            <Button color='green' onClick={() => setOpenRegister(false)}>
-                            <Icon name='checkmark' /> Yes
-                            </Button>
-                        </Modal.Actions>
-                    </Modal>
-                    
+                    <RegisterCouponBox walletAddress={walletAddress} />
                     &nbsp;
                     My coupons
                 </Header>

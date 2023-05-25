@@ -114,7 +114,7 @@ const App = () => {
       </TransitionablePortal>
       <TransitionablePortal
         open={openStore}
-        transition={{ animation : "fade up", duration: 500 }}
+        transition={{ animation : "fade up", duration: 0 }}
       >
         <Segment>
           <StoreMain walletAddress={walletAddress} />
@@ -122,7 +122,7 @@ const App = () => {
       </TransitionablePortal>
       <TransitionablePortal
         open={openUser}
-        transition={{ animation : "fade up", duration: 500 }}
+        transition={{ animation : "fade up", duration: 0 }}
       >
         <Segment>
           <UserMain walletAddress={walletAddress} />
