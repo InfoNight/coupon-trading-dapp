@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dimmer, Image, Segment } from 'semantic-ui-react';
-import main_img from './main_img.jpeg'
+import main_img from './test.jpeg'
 
 const Banner = () => {
   return (

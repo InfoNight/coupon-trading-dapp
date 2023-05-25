@@ -4,16 +4,22 @@ import {
     connectWallet,
     getCurrentWalletConnected
   } from "../utils/wallet.js";
-import { Button } from "semantic-ui-react";
+import { Dimmer, Loader, Card, Icon, Image } from "semantic-ui-react";
 
 
 
-const LoginButton = ({walletAddress, setWalletAddress, setMode, setStatus}) => {
+const LoginButton = ({setWalletAddress, setMode, setStatus}) => {
+    const [isLoading, setIsLoading] = useState(false);
+
     useEffect(async () => {
         const { address, status } = await getCurrentWalletConnected()
         setWalletAddress(address)
         setStatus(status)
-        setMode(WalletMode.NONE)
+
+        if (address !== "") {
+            setMode(WalletMode.NONE)
+        }
+
         addWalletListener()
     }, []);
 
@@ -39,29 +45,56 @@ const LoginButton = ({walletAddress, setWalletAddress, setMode, setStatus}) => {
         }
     }
     
-    const connectWalletPressed = async () => { //TODO: implement
+    const connectWalletPressed = async () => {
+        setIsLoading(true);
         const walletResponse = await connectWallet()
+        setIsLoading(false);
         setStatus(walletResponse.status)
         setWalletAddress(walletResponse.address)
-        setMode(WalletMode.NONE)
+        if (walletResponse.address !== "") {
+            setMode(WalletMode.NONE)
+        }
     };
 
       
     return (
-        <div>
-            {walletAddress.length > 0 ? (
-                <Button class="ui primary button" onClick={connectWalletPressed}>
-                    {"Connected: " +
-                    String(walletAddress).substring(0, 6) +
-                    "..." +
-                    String(walletAddress).substring(38)}
-                </Button>
-            ) : ( 
-                <Button class="ui secondary button">
-                    Connect Wallet
-                </Button>
-            )}
-        </div>
+      <div>
+          <Card onClick={connectWalletPressed} centered={true}>
+            <div style={{
+              "text-align": "center",
+              "padding-top": "30px",
+              "padding-bottom": "30px"
+            }}>
+              {isLoading ? (
+                <div>
+                  <Icon.Group size='huge'>
+                    <Icon loading size='big' color='black' name='circle notch' />
+                    <Icon color='black' name='user'/>
+                  </Icon.Group>
+                </div>
+              ) : (
+                <div>
+                  <Icon.Group size='huge'>
+                    <Icon size='big' color='black' name='circle outline' />
+                    <Icon color='black' name='user'/>
+                  </Icon.Group>
+                </div>
+              )}
+            </div>
+            <Card.Content textAlign="center">
+              <Card.Header>Welcome!</Card.Header>
+              <Card.Description>
+                Log-in with your wallet 
+              </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <a>
+                <Icon name='users' />
+                22 users logged-in
+              </a>
+            </Card.Content>
+          </Card>
+      </div>
     )
 }
 
