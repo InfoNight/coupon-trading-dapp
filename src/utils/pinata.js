@@ -41,7 +41,7 @@ const pinFileToIPFS = async (file, walletAddress, couponName, couponDescription)
     let data = new FormData();
     data.append('file', file);
     data.append('pinataMetadata', JSON.stringify({
-        name: couponName,
+        'name': couponName,
         keyvalues: {
             'walletAddress': walletAddress,
             'couponDescription': couponDescription,

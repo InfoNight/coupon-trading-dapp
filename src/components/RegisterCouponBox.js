@@ -25,7 +25,13 @@ const RegisterCouponBox = ({walletAddress}) => {
         setCouponDescription("");
         setCouponName("");
     }, []);
-    
+
+    const onChangeName = (e) => {
+        setCouponName(e.target.value);
+    };
+    const onChangeDescription = (e) => {
+        setCouponDescription(e.target.value);
+    };
     const onChangeImage = (input_file) => {
         setFile(input_file)
         setImage(URL.createObjectURL(input_file));
@@ -67,13 +73,15 @@ const RegisterCouponBox = ({walletAddress}) => {
                         label='Coupon name'
                         placeholder='Coupon name'
                         required={true}
+                        onChange={onChangeName}
                     />
                     <Form.Field
-                        id='form-textarea-control-opinion'
+                        id='form-textarea-control-description'
                         control={TextArea}
                         label='Description'
                         placeholder='Description'
                         required={true}
+                        onChange={onChangeDescription}
                     />
                     {image ? (
                         <Image src={image} />

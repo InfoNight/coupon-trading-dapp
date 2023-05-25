@@ -9,14 +9,15 @@ import {
   } from 'semantic-ui-react'
 
 const Coupon = ({coupon}) => {
+    console.log(coupon.metadata.keyvalues);
     return (
         <Grid.Column>
             <Card centered={true}>
                 <Image src={`https://gateway.pinata.cloud/ipfs/${coupon.ipfs_pin_hash}`} alt={coupon.name} />
                 <Card.Content textAlign="center">
-                    <Card.Header>{coupon.name}</Card.Header>
+                    <Card.Header>{coupon.metadata.name}</Card.Header>
                     <Card.Description>
-                        {coupon.description}
+                        {coupon.metadata.keyvalues.couponDescription}
                     </Card.Description>
                 </Card.Content>
             </Card>
