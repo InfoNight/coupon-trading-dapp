@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDropzone } from 'react-dropzone'
+import { pinFileToIPFS } from "../utils/pinata.js";
 
 
 const RegisterCouponBox = () => {
     const [couponType, setCouponType] = useState("");
     const [couponName, setCouponName] = useState("");
-    const [image, setImage] = useState({});
+    const [image, setImage] = useState(null);
     const [status, setStatus] = useState("");
     
     useEffect(async () => {
@@ -16,28 +17,21 @@ const RegisterCouponBox = () => {
     
     const onDrop = (acceptedFiles) => {
         const file = acceptedFiles[0];
-        console.log(file)
-
         const reader = new FileReader();
-
-        reader.onload = async () => {
-            console.log(reader.result)
-        }
         reader.readAsArrayBuffer(file)
-        // const formData = new FormData();
-        // formData.append('file', file);
-        // console.log(formData.get('file'))
-        // setImage({'formData': formData});
 
-        // console.log(image)
-        // console.log(image['formData'])
+        reader.onloadend = async () => {
+            const buffer = Buffer.from(reader.result);
+            setImage(buffer)
+        };    
     };
     
     const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
     const onRegisterPressed = async () => {
-        // const { status } = await mintNFT(couponType, address)
-        // setStatus(status)
+        console.log(image)
+        const file = new Blob([image], {type: 'image/jpeg'})
+        await pinFileToIPFS(file, couponType, couponName);
     };
 
     return (

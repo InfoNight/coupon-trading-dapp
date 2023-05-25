@@ -1,4 +1,4 @@
-import { pinJSONToIPFS, pinFileToIPFS } from "./pinata.js";
+import { pinJSONToIPFS } from "./pinata.js";
 require("dotenv").config();
 const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
 const contractABI = require("../contract-abi.json");
@@ -10,7 +10,7 @@ async function loadContract() {
   return new web3.eth.Contract(contractABI, contractAddress);
 }
 
-export const mintNFT = async (couponType, address) => {
+export const mintNFT = async (couponType, image_cid ,address) => {
   if (couponType.trim() == "" || address.trim() == "") {
     return {
       success: false,
@@ -21,7 +21,7 @@ export const mintNFT = async (couponType, address) => {
   //make metadata
   const metadata = new Object();
   metadata.couponType = couponType;
-  metadata.image = "https://gateway.pinata.cloud/ipfs/QmYimQd2n5iydCdLtiWVXTt1GHihH9FvVfwm6iReNSTSEp";
+  metadata.image = `https://gateway.pinata.cloud/ipfs/${image_cid}`;
   metadata.address = address;
 
   const pinataResponse = await pinJSONToIPFS(metadata);
