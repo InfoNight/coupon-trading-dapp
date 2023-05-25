@@ -15,9 +15,9 @@ const ModeSelector = ({setMode}) => {
             <Grid.Column key={1} width={8}>                
                 <Card onClick={onStorePressed} centered={true}>
                     <div style={{
-                        "text-align": "center",
-                        "padding-top": "30px",
-                        "padding-bottom": "30px"
+                        "textAlign": "center",
+                        "paddingTop": "30px",
+                        "paddingBottom": "30px"
                     }}>
                         <Icon.Group size='huge'>
                             <Icon size='big' color='black' name='circle outline' />
@@ -36,9 +36,9 @@ const ModeSelector = ({setMode}) => {
             <Grid.Column key={2} width={8}>
                 <Card onClick={onUserPressed} centered={true}>
                     <div style={{
-                        "text-align": "center",
-                        "padding-top": "30px",
-                        "padding-bottom": "30px"
+                        "textAlign": "center",
+                        "paddingTop": "30px",
+                        "paddingBottom": "30px"
                     }}>
                         <Icon.Group size='huge'>
                             <Icon size='big' color='black' name='circle outline' />
@@ -54,14 +54,6 @@ const ModeSelector = ({setMode}) => {
                 </Card>
             </Grid.Column>
         </Grid>
-        // <div>
-        //     <button className="setModeButton" onClick={onStorePressed}>
-        //         Store
-        //     </button>
-        //     <button className="setModeButton" onClick={onUserPressed}>
-        //         User
-        //     </button>
-        // </div>
     );
 }
 

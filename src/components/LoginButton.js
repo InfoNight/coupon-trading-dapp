@@ -61,9 +61,9 @@ const LoginButton = ({setWalletAddress, setMode, setStatus}) => {
       <div>
           <Card onClick={connectWalletPressed} centered={true}>
             <div style={{
-              "text-align": "center",
-              "padding-top": "30px",
-              "padding-bottom": "30px"
+              "textAlign": "center",
+              "paddingTop": "30px",
+              "paddinBbottom": "30px"
             }}>
               {isLoading ? (
                 <div>
