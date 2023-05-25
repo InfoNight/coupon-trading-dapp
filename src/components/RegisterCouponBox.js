@@ -20,6 +20,7 @@ const RegisterCouponBox = ({walletAddress}) => {
     const [status, setStatus] = useState("");
     const [hovered, setHovered] = useState(false);
     const [openRegister, setOpenRegister] = useState(false)
+    const [loading, setLoading] = useState(false);
 
     useEffect(async () => {
         setCouponDescription("");
@@ -38,8 +39,10 @@ const RegisterCouponBox = ({walletAddress}) => {
     };
 
     const onRegisterPressed = async () => {
+        setLoading(true);
         const hash = await pinFileToIPFS(file, walletAddress, couponName, couponDescription);
         console.log(hash);
+        setLoading(false);
         setOpenRegister(false);
     };
 
@@ -94,9 +97,15 @@ const RegisterCouponBox = ({walletAddress}) => {
                 <Button color='red' onClick={() => setOpenRegister(false)}>
                 <Icon name='remove' /> Cancel
                 </Button>
-                <Button color='green' onClick={onRegisterPressed}>
-                <Icon name='checkmark' /> Add
-                </Button>
+                {loading ? (
+                    <Button color='green'>
+                        <Icon name='circle notch' loading /> Add
+                    </Button>
+                ) : (
+                    <Button color='green' onClick={onRegisterPressed}>
+                    <Icon name='checkmark' /> Add
+                    </Button>
+                )}
             </Modal.Actions>
         </Modal>
     );
