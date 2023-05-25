@@ -7,7 +7,6 @@ const CouponList = ({walletAddress}) => {
     useEffect(async () => {
         const response = await getPinList(walletAddress);
         if (response.success) {
-            console.log(response.pinList);
             setCouponList(response.pinList);
         } else {
             console.log(response.message)

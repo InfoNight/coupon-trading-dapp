@@ -4,24 +4,16 @@ const secret = process.env.REACT_APP_PINATA_SECRET;
 const axios = require('axios');
 
 const getPinList = async (walletAddress) => {
-    // const keyvalues = new Object({
-    //     "walletAddress": {
-    //         value : walletAddress,
-    //         op: "eq",
-    //     }
-    // });
     const keyvalues = new Object({
-        "Brand": {
-            value : "kyochon",
+        "walletAddress": {
+            value : walletAddress,
             op: "eq",
         }
     });
-    const stringKeyValues = JSON.stringify(keyvalues);
-    console.log(stringKeyValues)
 
+    const stringKeyValues = JSON.stringify(keyvalues);
     const url = `https://api.pinata.cloud/data/pinList?status=pinned&metadata[keyvalues]=${stringKeyValues}`;
 
-    // const url = `https://api.pinata.cloud/data/pinList`;
     return axios
         .get(url, {
             headers: {
