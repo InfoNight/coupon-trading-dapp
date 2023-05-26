@@ -10,7 +10,9 @@ import {
     Icon,
     Dropdown,
     Form,
-    Input
+    Input,
+    Modal,
+    Button
 } from "semantic-ui-react";
 
 
@@ -18,6 +20,8 @@ const MintCouponBox = ({couponList}) => {
     const [couponName, setCouponName] = useState("");
     const [userAddress, setUserAddress] = useState("");
     const [hovered, setHovered] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [openTxInfo, setOpenTxInfo] = useState(false)
     const [status, setStatus] = useState("");
 
     useEffect(async () => {
@@ -40,11 +44,15 @@ const MintCouponBox = ({couponList}) => {
     };
 
     const onMintPressed = async () => {
+        setLoading(true)
         const coupon = _.filter(couponList, (coupon) => coupon.metadata.name === couponName)[0];
-        console.log(coupon);
-        console.log(userAddress);
-        // const { status } = await mintNFT(coupon, address)
-        // setStatus(status)
+        const { status } = await mintNFT(coupon, userAddress)
+        setLoading(false)
+        setStatus(status)
+        setOpenTxInfo(true)
+
+        console.log(coupon)
+        console.log(status)
     };
 
     return (
@@ -73,7 +81,9 @@ const MintCouponBox = ({couponList}) => {
                         onClick={onMintPressed}
                     >
                         <Icon name='right arrow' />
-                        {hovered ? (
+                        {loading ? (
+                            <Icon corner loading name='hourglass one'/>
+                        ) : hovered ? (
                             <Icon corner loading name='add'/>
                         ) : (
                             <Icon corner name='add'/>
@@ -91,29 +101,24 @@ const MintCouponBox = ({couponList}) => {
                         />
                     </Form>
                 </Grid.Column>
-            </Grid.Row>  
+            </Grid.Row>
+            <Modal
+                closeIcon
+                onClose={() => setOpenTxInfo(false)}
+                onOpen={() => setOpenTxInfo(true)}
+                open={openTxInfo}
+                >
+                <Header icon='archive' content='Transaction result' />
+                <Modal.Content>
+                    <p>{status}</p>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button color='red' onClick={() => setOpenTxInfo(false)}>
+                    <Icon name='remove' /> Close
+                    </Button>
+                </Modal.Actions>
+            </Modal>
         </Grid>
-        //     <form>
-        //         <h2>Coupon type: </h2>
-        //         <input
-        //         type="text"
-        //         placeholder="e.g. Chicken A"
-        //         onChange={(event) => setCouponType(event.target.value)}
-        //         />
-        //         <h2>User address: </h2>
-        //         <input
-        //         type="text"
-        //         placeholder="e.g. 0x...."
-        //         onChange={(event) => setAddress(event.target.value)}
-        //         />
-        //     </form>
-        //     <button id="mintButton" onClick={onMintPressed}>
-        //         Mint NFT
-        //     </button>
-        //     <p className="status">
-        //         {status}
-        //     </p>
-        // </div>
     );
 }
 
