@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
+import Banner from "components/Banner.js";
 import CouponList from "components/CouponList.js";
 import MintCouponBox from "components/MintCouponBox.js";
-import ReceiveCouponBox from "components/ReceiveCouponBox";
 import { getPinList } from "utils/pinata.js";
-import {
-    Grid,
-    Image,
-    Header
-  } from 'semantic-ui-react'
+import { WalletMode } from "../types";
 
 const StoreMain = ({walletAddress}) => {
     const [couponList, setCouponList] = useState([]);
@@ -22,32 +18,11 @@ const StoreMain = ({walletAddress}) => {
     }, []);
 
     return (
-        <Grid divided='vertically'>
-            <Grid.Row columns={1}>
-            <Grid.Column>
-                <Header as='h1'>Welcome {
-                    String(walletAddress).substring(0, 6) +
-                      "..." +
-                    String(walletAddress).substring(38)}
-                </Header>     
-            </Grid.Column>
-            </Grid.Row>
-            <Grid.Row columns={1}>
-            <Grid.Column>
-                <CouponList walletAddress={walletAddress} couponList={couponList}/>            
-            </Grid.Column>
-            </Grid.Row>
-            <Grid.Row columns={1}>
-            <Grid.Column>
-                <MintCouponBox couponList={couponList}/>
-            </Grid.Column>
-            </Grid.Row>
-            <Grid.Row columns={1}>
-            <Grid.Column>
-                <ReceiveCouponBox />
-            </Grid.Column>
-            </Grid.Row>
-        </Grid>
+        <div>
+            <Banner mode={WalletMode.STORE} walletAddress={walletAddress} />
+            <MintCouponBox couponList={couponList}/>
+            <CouponList walletAddress={walletAddress} couponList={couponList}/>
+        </div>
     );
 }
 
