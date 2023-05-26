@@ -1,7 +1,7 @@
 import { pinJSONToIPFS } from "./pinata.js";
+import { contractAddress } from "types";
 require("dotenv").config();
 const contractABI = require("../contract-abi.json");
-const contractAddress = "0x95c1B523395A333cb5Be120142EFBAa0c022717a";
 const Web3 = require('web3');
 const web3 = new Web3('https://api.baobab.klaytn.net:8651/');
 
