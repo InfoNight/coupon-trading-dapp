@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CouponList from "components/CouponList.js";
 import MintCouponBox from "components/MintCouponBox.js";
+import ReceiveCouponBox from "components/ReceiveCouponBox";
 import { getPinList } from "utils/pinata.js";
 import {
     Grid,
@@ -39,6 +40,11 @@ const StoreMain = ({walletAddress}) => {
             <Grid.Row columns={1}>
             <Grid.Column>
                 <MintCouponBox couponList={couponList}/>
+            </Grid.Column>
+            </Grid.Row>
+            <Grid.Row columns={1}>
+            <Grid.Column>
+                <ReceiveCouponBox />
             </Grid.Column>
             </Grid.Row>
         </Grid>

@@ -3,7 +3,7 @@ import {
     mintNFT
   } from "../utils/nft.js"; 
 import _ from 'lodash'
-import Coupon from 'components/Coupon.js';
+import QRCode from 'qrcode.react';
 import { 
     Grid,
     Header,
@@ -23,6 +23,7 @@ const MintCouponBox = ({couponList}) => {
     const [loading, setLoading] = useState(false);
     const [openTxInfo, setOpenTxInfo] = useState(false)
     const [status, setStatus] = useState("");
+    const [rand, setRand] = useState("");
 
     useEffect(async () => {
         setCouponName("");
@@ -46,12 +47,13 @@ const MintCouponBox = ({couponList}) => {
     const onMintPressed = async () => {
         setLoading(true)
         const coupon = _.filter(couponList, (coupon) => coupon.metadata.name === couponName)[0];
-        const { status } = await mintNFT(coupon, userAddress)
+        const { rand, status } = await mintNFT(coupon, userAddress)
         setLoading(false)
         setStatus(status)
+        setRand(rand)
         setOpenTxInfo(true)
 
-        console.log(coupon)
+        console.log(rand)
         console.log(status)
     };
 
@@ -61,7 +63,7 @@ const MintCouponBox = ({couponList}) => {
             <Grid.Column>
                 <Header as='h2'>
                     <Icon.Group size='big'>
-                        <Icon name='bell' />
+                        <Icon name='send' />
                     </Icon.Group>
                     &nbsp;
                     Mint coupons
@@ -107,10 +109,14 @@ const MintCouponBox = ({couponList}) => {
                 onClose={() => setOpenTxInfo(false)}
                 onOpen={() => setOpenTxInfo(true)}
                 open={openTxInfo}
+                centered={true}
                 >
                 <Header icon='archive' content='Transaction result' />
-                <Modal.Content>
-                    <p>{status}</p>
+                <Modal.Content style={{textAlign: 'center'}}>
+                    <QRCode value={rand} />
+                    <Modal.Description>
+                        <p>{status}</p>
+                    </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
                     <Button color='red' onClick={() => setOpenTxInfo(false)}>

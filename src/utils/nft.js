@@ -53,6 +53,7 @@ export const mintNFT = async (coupon, address) => {
     });
     return {
       success: true,
+      rand: rand,
       status:
         "✅ Check out your transaction on Etherscan: https://baobab.scope.klaytn.com/tx/" +
         txHash,
