@@ -10,9 +10,11 @@ import {
 
 const ReceiveCouponBox = () => {
     return (
-        <Icon.Group size='big'>
-            <Icon name='bell' />
-        </Icon.Group>
+        <Header as='h3' verticalAlign="middle">
+            <Icon.Group size='big'>
+                <Icon name='bell' />
+            </Icon.Group>
+        </Header>
     )
 }
     

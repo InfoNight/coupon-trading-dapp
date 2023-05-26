@@ -16,7 +16,7 @@ const CouponList = ({walletAddress, couponList}) => {
         <Grid divided='vertically'>
             <Grid.Row columns={1}>
             <Grid.Column>
-                <Header as='h2'>
+                <Header as='h3'>
                     <RegisterCouponBox walletAddress={walletAddress} />
                     &nbsp;
                     My coupons

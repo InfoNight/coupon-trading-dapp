@@ -14,6 +14,32 @@ export const getCouponList = async (address) => {
 
     window.contract = await new web3.eth.Contract(contractABI, contractAddress);
 
+    const transactionParameters = {
+      to: contractAddress, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.contract.methods
+        .getCouponURIs()
+        .encodeABI(),
+    };
+
+    // try {
+    // const result = await window.ethereum.request({
+    //   method: "eth_sendTransaction",
+    //   params: [transactionParameters],
+    // });
+    // console.log(result);
+    // return {
+    //     success: true,
+    //     userAddresses: data[0],
+    //     couponURIs: data[1]
+    // };
+    // } catch (error) {
+    //   return {
+    //     success: false,
+    //     status: "😥 Something went wrong: " + error.message,
+    //   };
+    // }
+
     try {
         const data = await window.contract.methods.getCouponURIs().call()
         return {

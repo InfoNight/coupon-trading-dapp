@@ -5,4 +5,4 @@ export const WalletMode = {
     STORE : 2
 };
 
-export const contractAddress = "0x2463b59673295BbADCEdD5A12c5079400DB6cAA8";
+export const contractAddress = "0x210A412Db34B3d13C3846D3cFed78dBA89be8DA8";
