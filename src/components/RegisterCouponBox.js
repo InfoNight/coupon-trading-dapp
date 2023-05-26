@@ -1,77 +1,113 @@
 import { useEffect, useState } from "react";
-import { useDropzone } from 'react-dropzone'
+import CouponDropzone from "./CouponDropzone.js"
+import { pinFileToIPFS } from "../utils/pinata.js";
+import {
+    Input,
+    Form,
+    Icon,
+    Header,
+    Button,
+    Modal,
+    TextArea,
+    Image
+  } from 'semantic-ui-react'
 
-
-const RegisterCouponBox = () => {
-    const [couponType, setCouponType] = useState("");
+const RegisterCouponBox = ({walletAddress}) => {
     const [couponName, setCouponName] = useState("");
-    const [image, setImage] = useState({});
+    const [couponDescription, setCouponDescription] = useState("");
+    const [file, setFile] = useState(null);
+    const [image, setImage] = useState(null);
     const [status, setStatus] = useState("");
-    
+    const [hovered, setHovered] = useState(false);
+    const [openRegister, setOpenRegister] = useState(false)
+    const [loading, setLoading] = useState(false);
+
     useEffect(async () => {
-        setCouponType("");
+        setCouponDescription("");
         setCouponName("");
     }, []);
-    
-    
-    const onDrop = (acceptedFiles) => {
-        const file = acceptedFiles[0];
-        console.log(file)
 
-        const reader = new FileReader();
-
-        reader.onload = async () => {
-            console.log(reader.result)
-        }
-        reader.readAsArrayBuffer(file)
-        // const formData = new FormData();
-        // formData.append('file', file);
-        // console.log(formData.get('file'))
-        // setImage({'formData': formData});
-
-        // console.log(image)
-        // console.log(image['formData'])
+    const onChangeName = (e) => {
+        setCouponName(e.target.value);
     };
-    
-    const { getRootProps, getInputProps } = useDropzone({ onDrop });
+    const onChangeDescription = (e) => {
+        setCouponDescription(e.target.value);
+    };
+    const onChangeImage = (input_file) => {
+        setFile(input_file)
+        setImage(URL.createObjectURL(input_file));
+    };
 
     const onRegisterPressed = async () => {
-        // const { status } = await mintNFT(couponType, address)
-        // setStatus(status)
+        setLoading(true);
+        const hash = await pinFileToIPFS(file, walletAddress, couponName, couponDescription);
+        console.log(hash);
+        setLoading(false);
+        setOpenRegister(false);
     };
 
     return (
-        <div>
-            <form>
-                <h2>Coupon type: </h2>
-                    <input
-                    type="text"
-                    placeholder="e.g. Chicken A"
-                    onChange={(event) => setCouponType(event.target.value)}
-                />
-                <h2>Coupon name: </h2>
-                <input
-                type="text"
-                placeholder="e.g. Gold Olive Chicken"
-                onChange={(event) => setCouponName(event.target.value)}
-                />
-                <h2>image: </h2>
-                <div {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    {image ? (
-                        <img src={image} alt="uploaded image" />
+        <Modal
+            closeIcon
+            open={openRegister}
+            trigger={
+                <Icon.Group size='big'
+                    onMouseOver={() => setHovered(true)} 
+                    onMouseLeave={() => setHovered(false)}
+                    style={{cursor: 'grabbing'}}
+                >
+                    <Icon name='ticket' />
+                    {hovered ? (
+                        <Icon corner loading name='add'/>
                     ) : (
-                        <p>Drag and drop an image here or click to select an image</p>
+                        <Icon corner name='add'/>
                     )}
-                </div>
-            </form>
-            <button id="registerButton" onClick={onRegisterPressed}>
-                Register coupon
-            </button>
-            <p className="status">
-                {status}
-            </p>
-        </div>
+                </Icon.Group>
+            }
+            onClose={() => setOpenRegister(false)}
+            onOpen={() => setOpenRegister(true)}
+            >
+            <Header icon='add' content='Add new coupon' />
+            <Modal.Content>
+                <Form>
+                    <Form.Field
+                        id='form-input-control-name'
+                        control={Input}
+                        label='Coupon name'
+                        placeholder='Coupon name'
+                        required={true}
+                        onChange={onChangeName}
+                    />
+                    <Form.Field
+                        id='form-textarea-control-description'
+                        control={TextArea}
+                        label='Description'
+                        placeholder='Description'
+                        required={true}
+                        onChange={onChangeDescription}
+                    />
+                    {image ? (
+                        <Image src={image} />
+                    ) : (
+                        <CouponDropzone onChangeImage={onChangeImage} />
+                    )}
+                </Form>
+            </Modal.Content>
+            <Modal.Actions>
+                <Button color='red' onClick={() => setOpenRegister(false)}>
+                <Icon name='remove' /> Cancel
+                </Button>
+                {loading ? (
+                    <Button color='green'>
+                        <Icon name='circle notch' loading /> Add
+                    </Button>
+                ) : (
+                    <Button color='green' onClick={onRegisterPressed}>
+                    <Icon name='checkmark' /> Add
+                    </Button>
+                )}
+            </Modal.Actions>
+        </Modal>
     );
 }
 
