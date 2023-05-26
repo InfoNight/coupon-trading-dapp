@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
 import CouponList from "components/CouponList.js";
 import MintCouponBox from "components/MintCouponBox.js";
-import RegisterCouponBox from "components/RegisterCouponBox.js";
+import { getPinList } from "utils/pinata.js";
 import {
     Grid,
     Image,
@@ -8,6 +9,17 @@ import {
   } from 'semantic-ui-react'
 
 const StoreMain = ({walletAddress}) => {
+    const [couponList, setCouponList] = useState([]);
+
+    useEffect(async () => {
+        const response = await getPinList(walletAddress);
+        if (response.success) {
+            setCouponList(response.pinList);
+        } else {
+            console.log(response.message)
+        }
+    }, []);
+
     return (
         <Grid divided='vertically'>
             <Grid.Row columns={1}>
@@ -21,16 +33,12 @@ const StoreMain = ({walletAddress}) => {
             </Grid.Row>
             <Grid.Row columns={1}>
             <Grid.Column>
-                <CouponList walletAddress={walletAddress}/>            
+                <CouponList walletAddress={walletAddress} couponList={couponList}/>            
             </Grid.Column>
             </Grid.Row>
-
-            <Grid.Row columns={2}>
+            <Grid.Row columns={1}>
             <Grid.Column>
-                <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-            </Grid.Column>
-            <Grid.Column>
-                <MintCouponBox />
+                <MintCouponBox couponList={couponList}/>
             </Grid.Column>
             </Grid.Row>
         </Grid>
