@@ -114,10 +114,7 @@ const MintCouponBox = ({couponList}) => {
                 </Modal.Content>
                 <Modal.Actions>
                     <Button color='red' onClick={() => setOpenTxInfo(false)}>
-                    <Icon name='remove' /> No
-                    </Button>
-                    <Button color='green' onClick={() => setOpenTxInfo(false)}>
-                    <Icon name='checkmark' /> Yes
+                    <Icon name='remove' /> Close
                     </Button>
                 </Modal.Actions>
             </Modal>

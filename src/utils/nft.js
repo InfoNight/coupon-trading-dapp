@@ -1,10 +1,11 @@
 import { pinJSONToIPFS } from "./pinata.js";
 require("dotenv").config();
-const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
 const contractABI = require("../contract-abi.json");
-const contractAddress = "0x5b1f0F371F65754B013cAda42251b0101334d513";
-const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
-const web3 = createAlchemyWeb3(alchemyKey);
+const contractAddress = "0x95c1B523395A333cb5Be120142EFBAa0c022717a";
+const Web3 = require('web3');
+const web3 = new Web3('https://api.baobab.klaytn.net:8651/');
+
+
 
 async function loadContract() {
   return new web3.eth.Contract(contractABI, contractAddress);
@@ -33,6 +34,7 @@ export const mintNFT = async (coupon, address) => {
     };
   }
   const tokenURI = pinataResponse.pinataUrl;
+  const rand = Math.random().toString(36)
 
   window.contract = await new web3.eth.Contract(contractABI, contractAddress);
 
@@ -40,7 +42,7 @@ export const mintNFT = async (coupon, address) => {
     to: contractAddress, // Required except during contract publications.
     from: window.ethereum.selectedAddress, // must match user's active address.
     data: window.contract.methods
-      .mintNFT(address, tokenURI)
+      .issueCoupon(address, rand, tokenURI)
       .encodeABI(),
   };
 
@@ -52,7 +54,7 @@ export const mintNFT = async (coupon, address) => {
     return {
       success: true,
       status:
-        "✅ Check out your transaction on Etherscan: https://sepolia.etherscan.io/tx/" +
+        "✅ Check out your transaction on Etherscan: https://baobab.scope.klaytn.com/tx/" +
         txHash,
     };
   } catch (error) {
