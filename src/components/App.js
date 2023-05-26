@@ -57,10 +57,8 @@ const App = () => {
         <Segment>
           <div style={{
                 "backgroundColor": "black",
-                "borderRadius": "35px",
           }}>
               <Image src={main_img} alt="Main Image" style={{
-                  "borderRadius": "35px",
                   "minHeight": "140px",
                   "opacity": "0.9",
                   "brightness": "0.5"

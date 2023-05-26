@@ -282,15 +282,14 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			}
-		],
+		"inputs": [],
 		"name": "getCouponURIs",
 		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			},
 			{
 				"internalType": "string[]",
 				"name": "",
