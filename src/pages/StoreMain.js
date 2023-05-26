@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Banner from "components/Banner.js";
-import CouponList from "components/CouponList.js";
-import MintCouponBox from "components/MintCouponBox.js";
+import CouponList from "components/store/CouponList.js";
+import MintCouponBox from "components/store/MintCouponBox.js";
 import { getPinList } from "utils/pinata.js";
-import { getCouponList } from "utils/contract.js";
+import { getStoreCouponList } from "utils/contract.js";
 import { WalletMode } from "../types";
 
 const StoreMain = ({walletAddress}) => {
@@ -17,7 +17,7 @@ const StoreMain = ({walletAddress}) => {
             console.log(pinataResponse.message)
         }
 
-        const contractResponse = await getCouponList(walletAddress);
+        const contractResponse = await getStoreCouponList(walletAddress);
         if (contractResponse.success) {
             console.log("success")
             console.log(contractResponse.userAddresses)

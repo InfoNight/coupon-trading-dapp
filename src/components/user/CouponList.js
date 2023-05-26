@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Coupon from 'components/Coupon.js';
-import RegisterCouponBox from 'components/RegisterCouponBox.js';
+import Coupon from 'components/user/Coupon.js';
+import RegisterCouponBox from 'components/user/RegisterCouponBox.js';
 import {
     Container,
     Image,

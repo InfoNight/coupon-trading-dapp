@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { WalletMode } from "../types";
-import ReceiveCouponBox from "./ReceiveCouponBox";
+import ReceiveCouponBox from "components/store/ReceiveCouponBox";
 import {
     Header,
     Icon,
@@ -34,9 +34,13 @@ const Banner = ({mode, walletAddress}) => {
                     String(walletAddress).substring(40)}                    
                 </Header>
             </Grid.Column>
-            <Grid.Column float="right" width={3} textAlign="right">
-                <ReceiveCouponBox />
-            </Grid.Column>
+            {mode === WalletMode.STORE ? (
+                <Grid.Column float="right" width={3} textAlign="right">
+                    <ReceiveCouponBox />
+                </Grid.Column>
+            ) : (
+                <div></div>
+            )}
             </Grid.Row>
             <Grid.Row>
             </Grid.Row>
