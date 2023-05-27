@@ -16,7 +16,7 @@ const Banner = ({mode, walletAddress, couponUsageList, setCouponUsageList}) => {
     return (
         <Grid divided='vertically'>
             <Grid.Row verticalAlign="bottom">
-            <Grid.Column float="left" width={13}>
+            <Grid.Column float="left" width={3}>
                 <Header as='h3'>
                     <span onClick={reload} style={{ cursor: "grab" }}>
                         {mode === WalletMode.STORE ? (
@@ -29,10 +29,14 @@ const Banner = ({mode, walletAddress, couponUsageList, setCouponUsageList}) => {
                             </Icon.Group>
                         )}
                     </span>
+                </Header>
+            </Grid.Column>
+            <Grid.Column float="left" width={10}>
+                <Header as='h3' style={{textAlign: "center"}}>
                     Welcome &nbsp;
                     {String(walletAddress).substring(0, 6) +
                     ".." +
-                    String(walletAddress).substring(40)}                    
+                    String(walletAddress).substring(40)}
                 </Header>
             </Grid.Column>
             {mode === WalletMode.STORE ? (
