@@ -8,7 +8,7 @@ import {
     Grid
   } from 'semantic-ui-react'
 
-const Banner = ({mode, walletAddress, couponUsageList}) => {
+const Banner = ({mode, walletAddress, couponUsageList, setCouponUsageList}) => {
     const reload = () => {
         window.location.reload();
     }
@@ -37,7 +37,7 @@ const Banner = ({mode, walletAddress, couponUsageList}) => {
             </Grid.Column>
             {mode === WalletMode.STORE ? (
                 <Grid.Column float="right" width={3} textAlign="right">
-                    <ReceiveCouponBox couponUsageList={couponUsageList}/>
+                    <ReceiveCouponBox walletAddress={walletAddress} couponUsageList={couponUsageList} setCouponUsageList={setCouponUsageList}/>
                 </Grid.Column>
             ) : (
                 <div></div>

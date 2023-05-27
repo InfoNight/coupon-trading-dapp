@@ -10,7 +10,7 @@ import {
     Header
   } from 'semantic-ui-react'
 
-const ReceiveCouponBox = ({couponUsageList}) => {
+const ReceiveCouponBox = ({walletAddress, couponUsageList, setCouponUsageList}) => {
     console.log(couponUsageList)
     const [openReceive, setOpenReceive] = useState(false);
     const [blink, setBlink] = useState(false);
@@ -46,7 +46,7 @@ const ReceiveCouponBox = ({couponUsageList}) => {
             <Header icon='archive' content='Coupon usage' />
             <Modal.Content>
                 {couponUsageList.map((couponUsage, index) => (
-                    <ReceiveCoupon couponUsage={couponUsage} />
+                    <ReceiveCoupon walletAddress={walletAddress} couponUsage={couponUsage} setOpenReceive={setOpenReceive} setCouponUsageList={setCouponUsageList}/>
                 ))}
             </Modal.Content>
             <Modal.Actions>
