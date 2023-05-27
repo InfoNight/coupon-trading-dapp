@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
+import MintCouponBox from "components/store/MintCouponBox.js";
 import {
     Container,
     Image,
     Icon,
-    Grid,
+    Button,
     Card,
     Segment
   } from 'semantic-ui-react'
-
+  
 const Coupon = ({coupon}) => {
     return (
         <Card centered={true}>
@@ -21,6 +22,7 @@ const Coupon = ({coupon}) => {
             <Card.Content extra>
                 Redemption unit: {coupon.metadata.keyvalues.couponUnit}
             </Card.Content>
+            <MintCouponBox coupon={coupon}/>
         </Card>
     )
 }
