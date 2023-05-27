@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { WalletMode } from "../types";
 import ReceiveCouponBox from "components/store/ReceiveCouponBox";
+
 import {
     Header,
     Icon,
     Grid
   } from 'semantic-ui-react'
 
-const Banner = ({mode, walletAddress}) => {
+const Banner = ({mode, walletAddress, couponUsageList}) => {
     const reload = () => {
         window.location.reload();
     }
@@ -36,7 +37,7 @@ const Banner = ({mode, walletAddress}) => {
             </Grid.Column>
             {mode === WalletMode.STORE ? (
                 <Grid.Column float="right" width={3} textAlign="right">
-                    <ReceiveCouponBox />
+                    <ReceiveCouponBox couponUsageList={couponUsageList}/>
                 </Grid.Column>
             ) : (
                 <div></div>

@@ -21,31 +21,17 @@ export const getStoreCouponList = async (address) => {
         .encodeABI(),
     };
 
-    // try {
-    // const result = await window.ethereum.request({
-    //   method: "eth_sendTransaction",
-    //   params: [transactionParameters],
-    // });
-    // console.log(result);
-    // return {
-    //     success: true,
-    //     userAddresses: data[0],
-    //     couponURIs: data[1]
-    // };
-    // } catch (error) {
-    //   return {
-    //     success: false,
-    //     status: "😥 Something went wrong: " + error.message,
-    //   };
-    // }
-
     try {
-        const data = await window.contract.methods.getPendingCoupons().call()
-        return {
-            success: true,
-            userAddresses: data[0],
-            couponURIs: data[1]
-        };
+      const data = await window.ethereum.request({
+        method: "eth_call",
+        params: [transactionParameters],
+      });
+      const parsedData = web3.eth.abi.decodeParameters(['address[]', 'string[]'], data);
+      return {
+          success: true,
+          userAddresses: parsedData[0],
+          couponURIs: parsedData[1]
+      };
     } catch (error) {
       return {
         success: false,

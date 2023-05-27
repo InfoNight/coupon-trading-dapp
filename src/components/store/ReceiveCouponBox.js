@@ -1,20 +1,60 @@
 import { useEffect, useState } from "react";
+import "css/blink.css"
+import ReceiveCoupon from "components/store/ReceiveCoupon";
 import {
     Container,
     Image,
     Icon,
-    Grid,
-    Card,
+    Modal,
+    Button,
     Header
   } from 'semantic-ui-react'
 
-const ReceiveCouponBox = () => {
+const ReceiveCouponBox = ({couponUsageList}) => {
+    console.log(couponUsageList)
+    const [openReceive, setOpenReceive] = useState(false);
+    const [blink, setBlink] = useState(false);
+
+    useEffect(async () => {
+        if (couponUsageList.length > 0) {
+            setBlink(true);
+        }
+    });
+
     return (
-        <Header as='h3' verticalAlign="middle">
-            <Icon.Group size='big'>
-                <Icon name='bell' />
-            </Icon.Group>
-        </Header>
+        <Modal
+            closeIcon
+            open={openReceive}
+            trigger={
+                <Header as='h3' verticalAlign="middle">
+                    {blink ? (
+                        <Icon.Group size='big' className="blinking" style={{
+                            cursor: "grab"
+                        }}>
+                            <Icon name='bell' />
+                        </Icon.Group>
+                    ) : (
+                        <Icon.Group size='big' >
+                            <Icon name='bell' />
+                        </Icon.Group>
+                    )}
+                </Header>
+            }
+            onClose={() => setOpenReceive(false)}
+            onOpen={() => setOpenReceive(true)}
+            >
+            <Header icon='archive' content='Coupon usage' />
+            <Modal.Content>
+                {couponUsageList.map((couponUsage, index) => (
+                    <ReceiveCoupon couponUsage={couponUsage} />
+                ))}
+            </Modal.Content>
+            <Modal.Actions>
+                <Button color='red' onClick={() => setOpenReceive(false)} >
+                    <Icon name='remove' /> Close
+                </Button>
+            </Modal.Actions>
+        </Modal>
     )
 }
     
