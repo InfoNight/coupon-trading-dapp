@@ -11,11 +11,11 @@ import {
 const Coupon = ({coupon}) => {
     return (
         <Card centered={true}>
-            <Image src={`https://gateway.pinata.cloud/ipfs/${coupon.ipfs_pin_hash}`} alt={coupon.name} />
+            <Image src={`${coupon.image}`} alt={coupon.couponName} />
             <Card.Content textAlign="center">
-                <Card.Header>{coupon.metadata.name}</Card.Header>
+                <Card.Header>{coupon.couponName}</Card.Header>
                 <Card.Description>
-                    {coupon.metadata.keyvalues.couponDescription}
+                    {coupon.couponDescription}
                 </Card.Description>
             </Card.Content>
         </Card>

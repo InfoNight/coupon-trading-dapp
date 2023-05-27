@@ -11,14 +11,14 @@ import {
     Grid
   } from 'semantic-ui-react'
 
-const CouponList = ({walletAddress, couponList}) => {
+const CouponList = ({couponList}) => {
     return (
         <Grid divided='vertically'>
             <Grid.Row columns={1}>
             <Grid.Column>
                 <Header as='h3'>
-                    <RegisterCouponBox walletAddress={walletAddress} />
-                    &nbsp;
+                    {/* <RegisterCouponBox walletAddress={walletAddress} /> */}
+                    {/* &nbsp; */}
                     My coupons
                 </Header>
             </Grid.Column>
