@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import Banner from "components/Banner.js";
 import CouponList from "components/store/CouponList.js";
 import MintCouponBox from "components/store/MintCouponBox.js";
-import { getPinList } from "utils/pinata.js";
-import { getStoreCouponList } from "utils/contract.js";
+import { getPinList } from "utils/store/store_pinata.js";
+import { getStoreCouponList } from "utils/store/store_contract.js";
 import { WalletMode } from "../types";
 
 const StoreMain = ({walletAddress}) => {

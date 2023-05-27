@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { 
     mintNFT
-  } from "utils/nft.js"; 
+  } from "utils/store/nft.js"; 
 import _ from 'lodash'
 import QRCode from 'qrcode.react';
 import { 

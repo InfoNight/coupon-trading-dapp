@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Banner from "components/Banner.js";
 import CouponList from "components/user/CouponList.js";
-import { getUserCouponList } from "utils/user_contracts.js";
+import { getUserCouponList } from "utils/user/user_contracts.js";
 // import { getUserPinList } from "utils/user_pinata.js";
 import { WalletMode } from "../types";
 
