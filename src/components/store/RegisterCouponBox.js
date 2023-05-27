@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import CouponDropzone from "./CouponDropzone.js"
-import { pinFileToIPFS } from "../utils/pinata.js";
+import CouponDropzone from "components/store/CouponDropzone.js"
+import { pinFileToIPFS } from "utils/pinata.js";
 import {
     Input,
     Form,

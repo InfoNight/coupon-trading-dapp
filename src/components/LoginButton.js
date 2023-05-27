@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { WalletMode } from "../types";
+import { WalletMode } from "types";
 import {
     connectWallet,
     getCurrentWalletConnected
-  } from "../utils/wallet.js";
+  } from "utils/wallet.js";
 import { Dimmer, Loader, Card, Icon, Image } from "semantic-ui-react";
 
 

@@ -3,8 +3,13 @@ const contractABI = require("../contract-abi.json");
 const Web3 = require('web3');
 const web3 = new Web3('https://api.baobab.klaytn.net:8651/');
 
+export const getUserCouponList = async (address) => {
+    return {
+        success: true,
+    };
+}
 
-export const getCouponList = async (address) => {
+export const getStoreCouponList = async (address) => {
     if (address.trim() == "") {
       return {
         success: false,
