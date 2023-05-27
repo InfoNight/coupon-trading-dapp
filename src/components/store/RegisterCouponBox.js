@@ -14,6 +14,7 @@ import {
 
 const RegisterCouponBox = ({walletAddress}) => {
     const [couponName, setCouponName] = useState("");
+    const [couponUnit, setCouponUnit] = useState("");
     const [couponDescription, setCouponDescription] = useState("");
     const [file, setFile] = useState(null);
     const [image, setImage] = useState(null);
@@ -30,6 +31,9 @@ const RegisterCouponBox = ({walletAddress}) => {
     const onChangeName = (e) => {
         setCouponName(e.target.value);
     };
+    const onChangeUnit = (e) => {
+        setCouponUnit(e.target.value);
+    };
     const onChangeDescription = (e) => {
         setCouponDescription(e.target.value);
     };
@@ -40,7 +44,7 @@ const RegisterCouponBox = ({walletAddress}) => {
 
     const onRegisterPressed = async () => {
         setLoading(true);
-        const hash = await pinFileToIPFS(file, walletAddress, couponName, couponDescription);
+        const hash = await pinFileToIPFS(file, walletAddress, couponName, couponUnit, couponDescription);
         console.log(hash);
         setLoading(false);
         setOpenRegister(false);
@@ -77,6 +81,14 @@ const RegisterCouponBox = ({walletAddress}) => {
                         placeholder='Coupon name'
                         required={true}
                         onChange={onChangeName}
+                    />
+                    <Form.Field
+                        id='form-input-control-name'
+                        control={Input}
+                        label='Redemption unit'
+                        placeholder='10'
+                        required={true}
+                        onChange={onChangeUnit}
                     />
                     <Form.Field
                         id='form-textarea-control-description'
