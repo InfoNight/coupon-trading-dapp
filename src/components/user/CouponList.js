@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Coupon from 'components/user/Coupon.js';
-import RegisterCouponBox from 'components/user/RegisterCouponBox.js';
+import ClaimCouponBox from 'components/user/ClaimCouponBox.js';
 import {
     Container,
     Image,
@@ -11,14 +11,14 @@ import {
     Grid
   } from 'semantic-ui-react'
 
-const CouponList = ({couponList}) => {
+const CouponList = ({couponList, setCouponList}) => {
     return (
         <Grid divided='vertically'>
             <Grid.Row columns={1}>
             <Grid.Column>
                 <Header as='h3'>
-                    {/* <RegisterCouponBox walletAddress={walletAddress} /> */}
-                    {/* &nbsp; */}
+                    <ClaimCouponBox setCouponList={setCouponList}/>
+                    &nbsp;
                     My coupons
                 </Header>
             </Grid.Column>
