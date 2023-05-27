@@ -8,6 +8,7 @@ import { WalletMode } from "../types";
 
 const StoreMain = ({walletAddress}) => {
     const [couponList, setCouponList] = useState([]);
+    const [couponUsageList, setCouponUsageList] = useState([]);
 
     useEffect(async () => {
         const pinataResponse = await getPinList(walletAddress);
@@ -19,10 +20,24 @@ const StoreMain = ({walletAddress}) => {
 
         const contractResponse = await getStoreCouponList(walletAddress);
         if (contractResponse.success) {
-            console.log("success")
-            console.log(contractResponse.userAddresses)
-            console.log(contractResponse.couponURIs)
-            // setCouponList(contractResponse.couponList);
+            let couponUsages = [];
+            for (let i = 0; i < contractResponse.userAddresses.length; i++) {
+                let couponUsage = { address: contractResponse.userAddresses[i], couponURI: contractResponse.couponURIs[i] };
+                couponUsages.push(couponUsage);
+            }
+
+            let agg = couponUsages.reduce((acc, cur) => {
+                if (acc[cur.address]) {
+                    acc[cur.address].count = acc[cur.address].count + 1;
+                } else {
+                    acc[cur.address] = {couponURI: cur.couponURI, count: 1};
+                }
+                return acc;
+            }, {})
+
+            for (let[key, value] of Object.entries(agg)) {
+                setCouponUsageList([...couponUsageList, {address: key, couponURI: value.couponURI, count: value.count}]);;
+            }
         } else {
             console.log(contractResponse.message)
         }
@@ -30,7 +45,7 @@ const StoreMain = ({walletAddress}) => {
 
     return (
         <div>
-            <Banner mode={WalletMode.STORE} walletAddress={walletAddress} />
+            <Banner mode={WalletMode.STORE} walletAddress={walletAddress} couponUsageList={couponUsageList}/>
             <MintCouponBox couponList={couponList}/>
             <CouponList walletAddress={walletAddress} couponList={couponList}/>
         </div>

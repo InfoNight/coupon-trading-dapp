@@ -36,6 +36,25 @@ const getPinList = async (walletAddress) => {
         });
 };
 
+const getPinJsonByURI = async (couponURI) => {
+    return axios
+        .get(couponURI)
+        .then(function (response) {
+            return {
+                success: true,
+                pinJson: response.data,
+            };
+        })
+        .catch(function (error) {
+            console.log(error)
+            return {
+                success: false,
+                message: error.message,
+            }
+        });
+};
+
+
 const pinFileToIPFS = async (file, walletAddress, couponName, couponDescription) => {
     const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
     let data = new FormData();
@@ -97,4 +116,4 @@ const pinJSONToIPFS = async(JSONBody) => {
         });
 };
 
-export { getPinList, pinFileToIPFS, pinJSONToIPFS };
+export { getPinList, getPinJsonByURI, pinFileToIPFS, pinJSONToIPFS };
