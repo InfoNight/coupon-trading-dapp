@@ -8,7 +8,7 @@ import {
     Grid
   } from 'semantic-ui-react'
 
-const Banner = ({mode, walletAddress, couponUsageList}) => {
+const Banner = ({mode, walletAddress, couponUsageList, setCouponUsageList}) => {
     const reload = () => {
         window.location.reload();
     }
@@ -16,7 +16,7 @@ const Banner = ({mode, walletAddress, couponUsageList}) => {
     return (
         <Grid divided='vertically'>
             <Grid.Row verticalAlign="bottom">
-            <Grid.Column float="left" width={13}>
+            <Grid.Column float="left" width={3}>
                 <Header as='h3'>
                     <span onClick={reload} style={{ cursor: "grab" }}>
                         {mode === WalletMode.STORE ? (
@@ -29,15 +29,19 @@ const Banner = ({mode, walletAddress, couponUsageList}) => {
                             </Icon.Group>
                         )}
                     </span>
+                </Header>
+            </Grid.Column>
+            <Grid.Column float="left" width={10}>
+                <Header as='h3' style={{textAlign: "center"}}>
                     Welcome &nbsp;
                     {String(walletAddress).substring(0, 6) +
                     ".." +
-                    String(walletAddress).substring(40)}                    
+                    String(walletAddress).substring(40)}
                 </Header>
             </Grid.Column>
             {mode === WalletMode.STORE ? (
                 <Grid.Column float="right" width={3} textAlign="right">
-                    <ReceiveCouponBox couponUsageList={couponUsageList}/>
+                    <ReceiveCouponBox walletAddress={walletAddress} couponUsageList={couponUsageList} setCouponUsageList={setCouponUsageList}/>
                 </Grid.Column>
             ) : (
                 <div></div>

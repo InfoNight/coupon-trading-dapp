@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { 
     mintNFT
-  } from "utils/nft.js"; 
+  } from "utils/store/nft.js"; 
 import _ from 'lodash'
 import QRCode from 'qrcode.react';
 import { 
     Grid,
     Header,
     Icon,
-    Dropdown,
+    Popup,
     Form,
     Input,
     Modal,
@@ -16,87 +16,91 @@ import {
 } from "semantic-ui-react";
 
 
-const MintCouponBox = ({couponList}) => {
-    const [couponName, setCouponName] = useState("");
+const MintCouponBox = ({walletAddress, coupon}) => {
     const [userAddress, setUserAddress] = useState("");
+    const [mintDisable, setMintDisable] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [openMintInfo, setOpenMintInfo] = useState(false)
     const [openTxInfo, setOpenTxInfo] = useState(false)
     const [status, setStatus] = useState("");
     const [rand, setRand] = useState("");
 
     useEffect(async () => {
-        setCouponName("");
         setUserAddress("");
     }, []);
 
-    const stateOptions = _.map(couponList, (coupon) => ({
-        key: coupon.metadata.name,
-        text: coupon.metadata.name,
-        value: coupon.metadata.name,
-    }))
-
-    const onChangeCoupon = (e, data) => {
-        setCouponName(data.value);
-    };
 
     const onChangeUserAddress = (e) => {
+        if (String(e.target.value).toLowerCase().valueOf() === String(walletAddress).toLowerCase().valueOf()) {
+            setMintDisable(true)
+        }
         setUserAddress(e.target.value);
     };
 
     const onMintPressed = async () => {
-        setLoading(true)
-        const coupon = _.filter(couponList, (coupon) => coupon.metadata.name === couponName)[0];
-        const { rand, status } = await mintNFT(coupon, userAddress)
-        setLoading(false)
-        setStatus(status)
-        setRand(rand)
-        setOpenTxInfo(true)
-
-        console.log(rand)
-        console.log(status)
+        if (!mintDisable) {
+            setLoading(true)
+            const { rand, status } = await mintNFT(coupon, userAddress)
+            setLoading(false)
+            setStatus(status)
+            setRand(rand)
+            setOpenTxInfo(true)
+            setOpenMintInfo(false)
+    
+            console.log(rand)
+            console.log(status)
+        }
     };
 
     return (
-        <Grid divided='vertically' verticalAlign="middle">
-            <Grid.Row>
-                <Grid.Column floated='left' width={7}>
-                    <Header as='h3'>
-                        <Icon.Group size='big'>
-                            <Icon name='send' />
-                        </Icon.Group>
-                        &nbsp;
-                        Mint coupons
-                    </Header>
-                </Grid.Column>
-                <Grid.Column floated='right' width={9}>
-                    <Grid columns={1}>
-                        <Grid.Column>
-                            <Form>
-                                <Dropdown placeholder='Select coupon' search selection options={stateOptions} onChange={onChangeCoupon}
-                                        style={{width: '80%', marginBottom: '5px'}} />
-                                <Form.Field
-                                id='form-input-control-name'
-                                control={Input}
-                                placeholder='User address'
-                                required={true}
-                                onChange={onChangeUserAddress}
-                                style={{width: '80%', marginBottom: '5px'}}
-                                />
-                            </Form>
-                            {loading ? (
-                                <Button color='green'>
-                                    <Icon name='circle notch' loading /> Mint
-                                </Button>
-                            ) : (
-                                <Button color='green' onClick={onMintPressed}>
-                                <Icon name='checkmark' /> Mint
-                                </Button>
-                            )}
-                        </Grid.Column>
-                    </Grid>
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row></Grid.Row>
+        <div>
+            <Modal
+                closeIcon
+                onClose={() => setOpenMintInfo(false)}
+                onOpen={() => setOpenMintInfo(true)}
+                open={openMintInfo}
+                trigger={loading ? (
+                    <Button color='green' style={{width: "100%"}}>
+                        <Icon name='circle notch' loading /> Mint
+                    </Button>
+                ) : (
+                    <Button color='green' style={{width: "100%"}}>
+                    <Icon name='checkmark' /> Mint
+                    </Button>
+                )}
+                centered={true}
+                style={{width: "50%"}}
+                >
+                <Header icon='add' content='Mint coupon' />
+                <Modal.Actions style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
+                    <Form.Field
+                        id='form-input-control-name'
+                        control={Input}
+                        placeholder='User address'
+                        required={true}
+                        onChange={onChangeUserAddress}
+                        />
+                    {mintDisable ? (
+                        <Popup content='You cannot self mint a coupon.' 
+                        trigger={
+                            <Button color='grey'>
+                                Disabled
+                            </Button>} 
+                        />
+                    ) : loading ? (
+                        <Button color='green'>
+                            <Icon name='circle notch' loading /> Mint
+                        </Button>
+                    ) : (
+                        <Button color='green' onClick={() => {
+                            setOpenTxInfo(false)
+                            onMintPressed()
+                        }}>
+                        <Icon name='checkmark' /> Mint
+                        </Button>
+                    )}
+                </Modal.Actions>
+            </Modal>
             <Modal
                 closeIcon
                 onClose={() => setOpenTxInfo(false)}
@@ -117,7 +121,7 @@ const MintCouponBox = ({couponList}) => {
                     </Button>
                 </Modal.Actions>
             </Modal>
-        </Grid>
+        </div>
     );
 }
 

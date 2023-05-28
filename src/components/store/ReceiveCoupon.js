@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getPinJsonByURI } from "utils/pinata.js";
+import { receiveCoupon, getStoreCouponList } from "utils/store/store_contract";
 import {
     Container,
     Image,
@@ -13,7 +14,7 @@ import {
   } from 'semantic-ui-react'
 
 
-const ReceiveCoupon = ({couponUsage}) => {
+const ReceiveCoupon = ({walletAddress, couponUsage, setOpenReceive, setCouponUsageList}) => {
     const [coupon, setCoupon] = useState(null);
     const [loading, setLoading] = useState(false);
     useEffect(async () => {
@@ -23,7 +24,16 @@ const ReceiveCoupon = ({couponUsage}) => {
 
     const clickReceiveCoupon = async () => {
         setLoading(true);
-        console.log("receive coupon")
+        const data = await receiveCoupon(couponUsage.address);
+        if (data.success) {
+            setOpenReceive(false);
+            const contractResponse = await getStoreCouponList(walletAddress);
+            if (contractResponse.success) {
+                setCouponUsageList(contractResponse.couponUsageList)
+            } else {
+                console.log(contractResponse.message)
+            }
+        } 
         setLoading(false);
     }
 
@@ -55,14 +65,6 @@ const ReceiveCoupon = ({couponUsage}) => {
                 </Button>
             )}
         </Grid>
-        // <Grid>
-        //     <Grid.Column width={8} floated="left">
-                
-        //     </Grid.Column>
-        //     <Grid.Column width={8} floated="right">
-        //         <Button size="small" style={{verticalAlign: "middle"}}>Receive</Button>
-        //     </Grid.Column>
-        // </Grid>     
     )
 };
 

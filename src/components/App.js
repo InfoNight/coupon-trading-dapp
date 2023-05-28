@@ -114,17 +114,13 @@ const App = () => {
         open={openStore}
         transition={{ animation : "fade up", duration: 0 }}
       >
-        <Segment>
-          <StoreMain walletAddress={walletAddress} />
-        </Segment>
+        <StoreMain walletAddress={walletAddress} />
       </TransitionablePortal>
       <TransitionablePortal
         open={openUser}
         transition={{ animation : "fade up", duration: 0 }}
       >
-        <Segment>
-          <UserMain walletAddress={walletAddress} />
-        </Segment>
+        <UserMain walletAddress={walletAddress} />
       </TransitionablePortal>
     </Container>
   );

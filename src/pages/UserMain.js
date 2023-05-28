@@ -1,31 +1,37 @@
 import { useEffect, useState } from "react";
 import Banner from "components/Banner.js";
 import CouponList from "components/user/CouponList.js";
-import { getUserCouponList } from "utils/user_contracts.js";
-// import { getUserPinList } from "utils/user_pinata.js";
+import load_coupons from "utils/user/load_coupons";
+import { pageBackgroundColor } from "types";
 import { WalletMode } from "../types";
+import { Segment } from "semantic-ui-react";
 
 const UserMain = ({walletAddress}) => {
     const [couponList, setCouponList] = useState([]);
 
     useEffect(async () => {
-        const contractResponse = await getUserCouponList();
-        if (contractResponse.success) {
-            console.log("success")
-            console.log(contractResponse.userAddresses)
-            console.log(contractResponse.couponURIs)
-            
-            // const pinataResponse = await getUserPinList(contractResponse.couponURIs);
-            // setCouponList(contractResponse.couponList);
+        const loadResponse = await load_coupons();
+        if (loadResponse.success) {
+            // console.log(loadResponse.couponList);
+            setCouponList(loadResponse.couponList);
         } else {
-            console.log(contractResponse.message)
+            console.log(loadResponse.status);
         }
     }, []);
 
     return (
-        <div>
-            <Banner mode={WalletMode.USER} walletAddress={walletAddress} />
-            <CouponList walletAddress={walletAddress} couponList={couponList}/>
+        <div style={{
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: pageBackgroundColor,
+            height: "100vh"
+        }}>
+            <Segment style={{
+                width: "50%"
+            }}>
+                <Banner mode={WalletMode.USER} walletAddress={walletAddress} />
+                <CouponList couponList={couponList} setCouponList={setCouponList}/>
+            </Segment>
         </div>
     );
 }

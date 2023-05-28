@@ -10,7 +10,7 @@ import {
     Header
   } from 'semantic-ui-react'
 
-const ReceiveCouponBox = ({couponUsageList}) => {
+const ReceiveCouponBox = ({walletAddress, couponUsageList, setCouponUsageList}) => {
     console.log(couponUsageList)
     const [openReceive, setOpenReceive] = useState(false);
     const [blink, setBlink] = useState(false);
@@ -18,8 +18,10 @@ const ReceiveCouponBox = ({couponUsageList}) => {
     useEffect(async () => {
         if (couponUsageList.length > 0) {
             setBlink(true);
+        } else {
+            setBlink(false);
         }
-    });
+    }, [couponUsageList]);
 
     return (
         <Modal
@@ -29,12 +31,15 @@ const ReceiveCouponBox = ({couponUsageList}) => {
                 <Header as='h3' verticalAlign="middle">
                     {blink ? (
                         <Icon.Group size='big' className="blinking" style={{
+                            color: "#FFB84C",
                             cursor: "grab"
                         }}>
-                            <Icon name='bell' />
+                            <Icon name='bell'/>
                         </Icon.Group>
                     ) : (
-                        <Icon.Group size='big' >
+                        <Icon.Group size='big' style={{
+                            cursor: "grab"
+                        }}>
                             <Icon name='bell' />
                         </Icon.Group>
                     )}
@@ -46,7 +51,7 @@ const ReceiveCouponBox = ({couponUsageList}) => {
             <Header icon='archive' content='Coupon usage' />
             <Modal.Content>
                 {couponUsageList.map((couponUsage, index) => (
-                    <ReceiveCoupon couponUsage={couponUsage} />
+                    <ReceiveCoupon walletAddress={walletAddress} couponUsage={couponUsage} setOpenReceive={setOpenReceive} setCouponUsageList={setCouponUsageList}/>
                 ))}
             </Modal.Content>
             <Modal.Actions>
