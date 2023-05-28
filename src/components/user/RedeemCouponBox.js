@@ -11,14 +11,16 @@ import {
     Button
 } from "semantic-ui-react";
 
-const UseCouponBox = ({coupon}) => {
+const RedeemCouponBox = ({coupon}) => {
     const [storeAddress, setStoreAddress] = useState("");
     const [couponNumber, setCouponNumber] = useState(0);
     const [loading, setLoading] = useState(false);
     const [openRedeemInfo, setOpenRedeemInfo] = useState(false);
+    const [redeemEnable, setRedeemEnable] = useState(false);
 
     useEffect(async () => {
-        setStoreAddress("");
+        console.log(coupon.couponCount >= coupon.couponUnit)
+        setRedeemEnable(coupon.couponCount >= coupon.couponUnit);
     }, []);
 
     const onChangeStoreAddress = (e) => {
@@ -48,13 +50,19 @@ const UseCouponBox = ({coupon}) => {
                 onClose={() => setOpenRedeemInfo(false)}
                 onOpen={() => setOpenRedeemInfo(true)}
                 open={openRedeemInfo}
-                trigger={loading ? (
-                    <Button color='green' style={{width: "100%"}}>
-                        <Icon name='circle notch' loading /> Redeem
-                    </Button>
+                trigger={ redeemEnable ? (
+                    loading ? (
+                        <Button color='green' style={{width: "100%"}}>
+                            <Icon name='circle notch' loading /> Redeem
+                        </Button>
+                    ) : (
+                        <Button color='green' style={{width: "100%"}}>
+                        <Icon name='checkmark' /> Redeem
+                        </Button>
+                    )
                 ) : (
-                    <Button color='green' style={{width: "100%"}}>
-                    <Icon name='checkmark' /> Redeem
+                    <Button color='grey' disabled='true' style={{width: "100%"}}>
+                    <Icon name='checkmark' /> Not Enough Coupons
                     </Button>
                 )}
                 centered={true}
@@ -104,4 +112,4 @@ const UseCouponBox = ({coupon}) => {
     );
 }
 
-export default UseCouponBox;
+export default RedeemCouponBox;
