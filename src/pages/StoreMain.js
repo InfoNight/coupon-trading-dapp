@@ -31,7 +31,8 @@ const StoreMain = ({walletAddress}) => {
         <div style={{
             display: "flex",
             justifyContent: "center",
-            backgroundColor: pageBackgroundColor
+            backgroundColor: pageBackgroundColor,
+            height: "100vh"
         }}>
             <Segment style={{
                 width: "50%"

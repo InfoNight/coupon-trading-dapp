@@ -34,7 +34,9 @@ const ReceiveCouponBox = ({walletAddress, couponUsageList, setCouponUsageList}) 
                             <Icon name='bell' />
                         </Icon.Group>
                     ) : (
-                        <Icon.Group size='big' >
+                        <Icon.Group size='big' style={{
+                            cursor: "grab"
+                        }}>
                             <Icon name='bell' />
                         </Icon.Group>
                     )}
