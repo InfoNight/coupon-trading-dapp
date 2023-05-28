@@ -41,7 +41,7 @@ const ClaimCouponBox = ({setCouponList}) => {
             setCouponList(loadResponse.couponList);
         } else {
             console.log(loadResponse.status);
-        } 
+        }
 
         setLoading(false);
         setAddCoupon(false);
