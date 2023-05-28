@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import UseCouponBox from "components/user/UseCouponBox.js";
 import {
     Container,
     Image,
@@ -19,10 +20,15 @@ const Coupon = ({coupon}) => {
                 </Card.Description>
             </Card.Content>
             <Card.Content extra>
-                Coupon count: {coupon.couponCount} / <b>{coupon.couponUnit}</b>
+                Coupon count: {coupon.couponCount} / <b>{
+                    coupon.couponUnit === undefined
+                    ? 1
+                    : coupon.couponUnit
+                }</b>
             </Card.Content>
+            <UseCouponBox coupon={coupon}/>
         </Card>
     )
 }
-    
+
 export default Coupon;

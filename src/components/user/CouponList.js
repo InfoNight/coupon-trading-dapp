@@ -16,7 +16,7 @@ const CouponList = ({couponList, setCouponList}) => {
         <Grid divided='vertically'>
             <Grid.Row columns={1}>
             <Grid.Column>
-                <Header as='h3'>
+                <Header as='h3'style={{textAlign: "center"}}>
                     <ClaimCouponBox setCouponList={setCouponList}/>
                     &nbsp;
                     My coupons

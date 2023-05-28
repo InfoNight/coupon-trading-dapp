@@ -69,3 +69,38 @@ export const claimCoupon = async (couponCode) => {
     };
   }
 }
+
+export const redeemCoupon = async (address, couponIds) => {
+  if (address.trim() == "") {
+    return {
+      success: false,
+      status: "❗Please make sure all fields are completed before minting.",
+    };
+  }
+
+  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+
+  const transactionParameters = {
+    to: contractAddress, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.contract.methods
+      .useCoupon(address, couponIds)
+      .encodeABI(),
+  };
+
+  try {
+    await window.ethereum.request({
+      method: "eth_sendTransaction",
+      params: [transactionParameters],
+    });
+
+    return {
+        success: true,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      status: "😥 Something went wrong with claimCoupon: " + error.message,
+    };
+  }
+}
