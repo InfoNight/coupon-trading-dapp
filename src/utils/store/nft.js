@@ -1,5 +1,5 @@
 import { pinJSONToIPFS } from "utils/store/store_pinata.js";
-import { contractAddress } from "types";
+import { contractAddress, gatewayAddress } from "types";
 require("dotenv").config();
 const contractABI = require("../../contract-abi.json");
 const Web3 = require('web3');
@@ -25,7 +25,7 @@ export const mintNFT = async (coupon, address) => {
   metadata.couponName = coupon.metadata.name;
   metadata.couponUnit = coupon.metadata.keyvalues.couponUnit;
   metadata.couponDescription = coupon.metadata.keyvalues.couponDescription;
-  metadata.image = `https://gateway.pinata.cloud/ipfs/${coupon.ipfs_pin_hash}`;
+  metadata.image = `${gatewayAddress}/${coupon.ipfs_pin_hash}`;
 
   const pinataResponse = await pinJSONToIPFS(metadata);
   if (!pinataResponse.success) {

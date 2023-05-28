@@ -1,3 +1,5 @@
+import { gatewayAddress } from "types";
+
 require('dotenv').config();
 const key = process.env.REACT_APP_PINATA_KEY;
 const secret = process.env.REACT_APP_PINATA_SECRET;
@@ -61,7 +63,7 @@ const pinFileToIPFS = async (file, walletAddress, couponName, couponUnit, coupon
         .then(function (response) {
             return {
                 success: true,
-                pinataUrl: "https://gateway.pinata.cloud/ipfs/" + response.data.IpfsHash
+                pinataUrl: gatewayAddress + response.data.IpfsHash
             };
         })
         .catch(function (error) {
@@ -78,6 +80,7 @@ const pinJSONToIPFS = async(JSONBody) => {
     return axios
         .post(url, JSONBody, {
             headers: {
+                'Content-Type': 'application/json',
                 pinata_api_key: key,
                 pinata_secret_api_key: secret,
             }
@@ -85,7 +88,7 @@ const pinJSONToIPFS = async(JSONBody) => {
         .then(function (response) {
            return {
                success: true,
-               pinataUrl: "https://gateway.pinata.cloud/ipfs/" + response.data.IpfsHash
+               pinataUrl: gatewayAddress + response.data.IpfsHash
            };
         })
         .catch(function (error) {

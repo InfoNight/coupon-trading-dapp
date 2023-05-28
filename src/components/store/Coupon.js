@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { gatewayAddress } from "types";
 import MintCouponBox from "components/store/MintCouponBox.js";
 import {
     Container,
@@ -12,7 +13,7 @@ import {
 const Coupon = ({walletAddress, coupon}) => {
     return (
         <Card centered={true}>
-            <Image src={`https://gateway.pinata.cloud/ipfs/${coupon.ipfs_pin_hash}`} alt={coupon.name} />
+            <Image src={`${gatewayAddress}/${coupon.ipfs_pin_hash}`} alt={coupon.name} />
             <Card.Content textAlign="center">
                 <Card.Header>{coupon.metadata.name}</Card.Header>
                 <Card.Description style={{textAlign: "left"}}>
