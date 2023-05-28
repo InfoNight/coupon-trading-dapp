@@ -23,11 +23,9 @@ const CouponList = ({couponList, setCouponList}) => {
                 </Header>
             </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
-                {couponList.map((coupon) => (
-                    <Coupon coupon={coupon} />
-                    ))}
-            </Grid.Row>  
+            {couponList.map((coupon) => (
+                <Coupon coupon={coupon} />
+                ))}
         </Grid>
     )
 }
