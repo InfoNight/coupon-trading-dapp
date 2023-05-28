@@ -18,8 +18,10 @@ const ReceiveCouponBox = ({walletAddress, couponUsageList, setCouponUsageList}) 
     useEffect(async () => {
         if (couponUsageList.length > 0) {
             setBlink(true);
+        } else {
+            setBlink(false);
         }
-    });
+    }, [couponUsageList]);
 
     return (
         <Modal
