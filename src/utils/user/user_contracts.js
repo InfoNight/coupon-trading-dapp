@@ -84,7 +84,7 @@ export const redeemCoupon = async (address, couponIds) => {
     to: contractAddress, // Required except during contract publications.
     from: window.ethereum.selectedAddress, // must match user's active address.
     data: window.contract.methods
-      .useCoupon(address, couponIds)
+      .redeemCoupon(address, couponIds)
       .encodeABI(),
   };
 
