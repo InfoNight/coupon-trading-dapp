@@ -20,9 +20,8 @@ const RedeemCouponBox = ({coupon}) => {
 
     useEffect(async () => {
         let couponUnit = coupon.couponUnit === undefined ? 1 : coupon.couponUnit;
-        console.log(coupon.couponCount >= couponUnit)
         setRedeemEnable(coupon.couponCount >= couponUnit);
-    }, []);
+    }, [coupon]);
 
     const onChangeStoreAddress = (e) => {
         setStoreAddress(e.target.value);
