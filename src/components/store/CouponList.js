@@ -8,7 +8,8 @@ import {
     Header,
     Button,
     Modal,
-    Grid
+    Grid,
+    Segment
   } from 'semantic-ui-react'
 
 const CouponList = ({walletAddress, couponList}) => {
@@ -23,9 +24,16 @@ const CouponList = ({walletAddress, couponList}) => {
                 </Header>
             </Grid.Column>
             </Grid.Row>
-            {couponList.map((coupon) => (
-                <Coupon walletAddress={walletAddress} coupon={coupon} />
-                ))}
+            {couponList.length === 0 ? (
+                <Container width="100%" style={{margin: "10px"}}>
+                    <Header as='h3' style={{textAlign: "center"}}>
+                        <i>Try add your own coupon type!</i>
+                    </Header>
+                </Container>
+            ) : (
+                couponList.map((coupon) => (
+                    <Coupon walletAddress={walletAddress} coupon={coupon} />
+            )))}
         </Grid>
     )
 }

@@ -23,9 +23,16 @@ const CouponList = ({couponList, setCouponList}) => {
                 </Header>
             </Grid.Column>
             </Grid.Row>
-            {couponList.map((coupon) => (
+            {couponList.length === 0 ? (
+                <Container width="100%" style={{margin: "10px"}}>
+                    <Header as='h3' style={{textAlign: "center"}}>
+                        <i>Try add your own coupon!</i>
+                    </Header>
+                </Container>
+            ) : (
+                couponList.map((coupon) => (
                 <Coupon coupon={coupon} />
-                ))}
+            )))}
         </Grid>
     )
 }
