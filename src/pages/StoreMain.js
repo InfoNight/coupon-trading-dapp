@@ -4,6 +4,7 @@ import CouponList from "components/store/CouponList.js";
 import { getPinList } from "utils/store/store_pinata.js";
 import { getStoreCouponList } from "utils/store/store_contract.js";
 import { WalletMode } from "../types";
+import { pageBackgroundColor } from "types";
 import { Segment } from "semantic-ui-react";
 
 const StoreMain = ({walletAddress}) => {
@@ -30,7 +31,7 @@ const StoreMain = ({walletAddress}) => {
         <div style={{
             display: "flex",
             justifyContent: "center",
-            backgroundColor: "#F8E8EE"
+            backgroundColor: pageBackgroundColor
         }}>
             <Segment style={{
                 width: "50%"

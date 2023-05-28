@@ -5,7 +5,12 @@ const axios = require('axios');
 
 const getPinJsonByURI = async (couponURI) => {
     return axios
-        .get(couponURI)
+        .get(couponURI, {
+            headers: {
+                'Content-Type': "application/json"
+            },
+            credentials: 'same-origin'
+        })
         .then(function (response) {
             return {
                 success: true,
