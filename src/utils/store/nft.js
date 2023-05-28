@@ -23,7 +23,7 @@ export const mintNFT = async (coupon, address) => {
   // make metadata
   const metadata = new Object();
   metadata.couponName = coupon.metadata.name;
-  metadata.couponUnit = coupon.metadata.couponUnit;
+  metadata.couponUnit = coupon.metadata.keyvalues.couponUnit;
   metadata.couponDescription = coupon.metadata.keyvalues.couponDescription;
   metadata.image = `https://gateway.pinata.cloud/ipfs/${coupon.ipfs_pin_hash}`;
 

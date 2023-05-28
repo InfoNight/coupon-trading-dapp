@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import UseCouponBox from "components/user/UseCouponBox.js";
 import {
     Container,
     Image,
@@ -11,15 +12,23 @@ import {
 const Coupon = ({coupon}) => {
     return (
         <Card centered={true}>
-            <Image src={`https://gateway.pinata.cloud/ipfs/${coupon.ipfs_pin_hash}`} alt={coupon.name} />
+            <Image src={`${coupon.image}`} alt={coupon.couponName} />
             <Card.Content textAlign="center">
-                <Card.Header>{coupon.metadata.name}</Card.Header>
-                <Card.Description>
-                    {coupon.metadata.keyvalues.couponDescription}
+                <Card.Header>{coupon.couponName}</Card.Header>
+                <Card.Description style={{textAlign: "left"}}>
+                    {coupon.couponDescription}
                 </Card.Description>
             </Card.Content>
+            <Card.Content extra>
+                Coupon count: {coupon.couponCount} / <b>{
+                    coupon.couponUnit === undefined
+                    ? 1
+                    : coupon.couponUnit
+                }</b>
+            </Card.Content>
+            <UseCouponBox coupon={coupon}/>
         </Card>
     )
 }
-    
+
 export default Coupon;
