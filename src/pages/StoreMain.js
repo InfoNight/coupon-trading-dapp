@@ -38,7 +38,7 @@ const StoreMain = ({walletAddress}) => {
                 width: "50%"
             }}>
                 <Banner mode={WalletMode.STORE} walletAddress={walletAddress} couponUsageList={couponUsageList} setCouponUsageList={setCouponUsageList}/>
-                <CouponList walletAddress={walletAddress} couponList={couponList}/>
+                <CouponList walletAddress={walletAddress} couponList={couponList} setCouponList={setCouponList} setCouponUsageList={setCouponUsageList}/>
             </Segment>
         </div>
     );

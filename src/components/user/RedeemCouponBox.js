@@ -19,8 +19,9 @@ const RedeemCouponBox = ({coupon}) => {
     const [redeemEnable, setRedeemEnable] = useState(false);
 
     useEffect(async () => {
-        console.log(coupon.couponCount >= coupon.couponUnit)
-        setRedeemEnable(coupon.couponCount >= coupon.couponUnit);
+        let couponUnit = coupon.couponUnit === undefined ? 1 : coupon.couponUnit;
+        console.log(coupon.couponCount >= couponUnit)
+        setRedeemEnable(coupon.couponCount >= couponUnit);
     }, []);
 
     const onChangeStoreAddress = (e) => {
@@ -33,8 +34,6 @@ const RedeemCouponBox = ({coupon}) => {
 
     const onRedeemPressed = async () => {
         setLoading(true)
-        console.log(Number(couponNumber))
-        console.log(coupon.couponIds.slice(0, Number(couponNumber)))
         const useCouponResponse = await redeemCoupon(storeAddress, coupon.couponIds.slice(0, Number(couponNumber)));
         if (!useCouponResponse.success) {
             console.log(useCouponResponse.status);
