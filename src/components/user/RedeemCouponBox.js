@@ -11,11 +11,12 @@ import {
     Button
 } from "semantic-ui-react";
 
-const UseCouponBox = ({coupon}) => {
+const RedeemCouponBox = ({coupon}) => {
     const [storeAddress, setStoreAddress] = useState("");
     const [couponNumber, setCouponNumber] = useState(0);
     const [loading, setLoading] = useState(false);
     const [openRedeemInfo, setOpenRedeemInfo] = useState(false);
+    const []
 
     useEffect(async () => {
         setStoreAddress("");

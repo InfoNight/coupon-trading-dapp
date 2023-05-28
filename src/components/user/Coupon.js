@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import UseCouponBox from "components/user/UseCouponBox.js";
+import RedeemCouponBox from "components/user/RedeemCouponBox.js";
 import {
     Container,
     Image,
@@ -26,7 +26,7 @@ const Coupon = ({coupon}) => {
                     : coupon.couponUnit
                 }</b>
             </Card.Content>
-            <UseCouponBox coupon={coupon}/>
+            <RedeemCouponBox coupon={coupon}/>
         </Card>
     )
 }
