@@ -48,6 +48,7 @@ const RegisterCouponBox = ({walletAddress}) => {
         console.log(hash);
         setLoading(false);
         setOpenRegister(false);
+        setImage(null);
     };
 
     return (
