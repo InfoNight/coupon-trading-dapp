@@ -12,7 +12,6 @@ const UserMain = ({walletAddress}) => {
     useEffect(async () => {
         const loadResponse = await load_coupons();
         if (loadResponse.success) {
-            // console.log(loadResponse.couponList);
             setCouponList(loadResponse.couponList);
         } else {
             console.log(loadResponse.status);

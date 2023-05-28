@@ -11,7 +11,6 @@ import {
   } from 'semantic-ui-react'
 
 const ReceiveCouponBox = ({walletAddress, couponUsageList, setCouponUsageList}) => {
-    console.log(couponUsageList)
     const [openReceive, setOpenReceive] = useState(false);
     const [blink, setBlink] = useState(false);
 

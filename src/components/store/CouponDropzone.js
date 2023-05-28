@@ -10,7 +10,6 @@ import {
 const CouponDropzone = ({onChangeImage}) => {
     const onDrop = useCallback(
         (files) => {
-            console.log(files[0]);
             onChangeImage(files[0]);
         },
         [onChangeImage]

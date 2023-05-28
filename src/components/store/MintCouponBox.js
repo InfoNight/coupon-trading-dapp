@@ -46,9 +46,6 @@ const MintCouponBox = ({walletAddress, coupon}) => {
             setRand(rand)
             setOpenTxInfo(true)
             setOpenMintInfo(false)
-    
-            console.log(rand)
-            console.log(status)
         }
     };
 

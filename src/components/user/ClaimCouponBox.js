@@ -29,15 +29,12 @@ const ClaimCouponBox = ({setCouponList}) => {
     const onClaimPressed = async () => {
         setLoading(true);
         const claimResponse = await claimCoupon(couponCode);
-        if (claimResponse.success) {
-            // console.log(claimResponse.couponId);
-        } else {
+        if (!claimResponse.success) {
             console.log(claimResponse.message)
         }
 
         const loadResponse = await load_coupons();
         if (loadResponse.success) {
-            // console.log(loadResponse.couponList);
             setCouponList(loadResponse.couponList);
         } else {
             console.log(loadResponse.status);

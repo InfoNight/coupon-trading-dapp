@@ -3,13 +3,8 @@ import { getPinJsonByURI } from "utils/pinata.js";
 
 const load_coupons = async () => {
     const contractResponse = await getUserCouponList();
-    if (contractResponse.success) {
-        console.log("success")
-        console.log(contractResponse.tokenIds)
-        console.log(contractResponse.couponURIs)
-        
+    if (contractResponse.success) {        
         let couponInfo = {};
-        // let couponIdList = {};
         let couponURIList = [];
         for (let i=0; i<contractResponse.couponURIs.length; i++) {
             if (contractResponse.couponURIs[i] in couponInfo) {
