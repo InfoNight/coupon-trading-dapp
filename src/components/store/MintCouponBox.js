@@ -8,7 +8,7 @@ import {
     Grid,
     Header,
     Icon,
-    Dropdown,
+    Popup,
     Form,
     Input,
     Modal,
@@ -16,8 +16,9 @@ import {
 } from "semantic-ui-react";
 
 
-const MintCouponBox = ({coupon}) => {
+const MintCouponBox = ({walletAddress, coupon}) => {
     const [userAddress, setUserAddress] = useState("");
+    const [mintDisable, setMintDisable] = useState(false);
     const [loading, setLoading] = useState(false);
     const [openMintInfo, setOpenMintInfo] = useState(false)
     const [openTxInfo, setOpenTxInfo] = useState(false)
@@ -30,20 +31,25 @@ const MintCouponBox = ({coupon}) => {
 
 
     const onChangeUserAddress = (e) => {
+        if (String(e.target.value).toLowerCase().valueOf() === String(walletAddress).toLowerCase().valueOf()) {
+            setMintDisable(true)
+        }
         setUserAddress(e.target.value);
     };
 
     const onMintPressed = async () => {
-        setLoading(true)
-        const { rand, status } = await mintNFT(coupon, userAddress)
-        setLoading(false)
-        setStatus(status)
-        setRand(rand)
-        setOpenTxInfo(true)
-        setOpenMintInfo(false)
-
-        console.log(rand)
-        console.log(status)
+        if (!mintDisable) {
+            setLoading(true)
+            const { rand, status } = await mintNFT(coupon, userAddress)
+            setLoading(false)
+            setStatus(status)
+            setRand(rand)
+            setOpenTxInfo(true)
+            setOpenMintInfo(false)
+    
+            console.log(rand)
+            console.log(status)
+        }
     };
 
     return (
@@ -74,7 +80,14 @@ const MintCouponBox = ({coupon}) => {
                         required={true}
                         onChange={onChangeUserAddress}
                         />
-                    {loading ? (
+                    {mintDisable ? (
+                        <Popup content='You cannot self mint a coupon.' 
+                        trigger={
+                            <Button color='grey'>
+                                Disabled
+                            </Button>} 
+                        />
+                    ) : loading ? (
                         <Button color='green'>
                             <Icon name='circle notch' loading /> Mint
                         </Button>

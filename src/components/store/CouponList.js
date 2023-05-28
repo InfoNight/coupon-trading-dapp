@@ -24,7 +24,7 @@ const CouponList = ({walletAddress, couponList}) => {
             </Grid.Column>
             </Grid.Row>
             {couponList.map((coupon) => (
-                <Coupon coupon={coupon} />
+                <Coupon walletAddress={walletAddress} coupon={coupon} />
                 ))}
         </Grid>
     )

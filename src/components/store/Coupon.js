@@ -9,7 +9,7 @@ import {
     Segment
   } from 'semantic-ui-react'
   
-const Coupon = ({coupon}) => {
+const Coupon = ({walletAddress, coupon}) => {
     return (
         <Card centered={true}>
             <Image src={`https://gateway.pinata.cloud/ipfs/${coupon.ipfs_pin_hash}`} alt={coupon.name} />
@@ -22,7 +22,7 @@ const Coupon = ({coupon}) => {
             <Card.Content extra>
                 Redemption unit: {coupon.metadata.keyvalues.couponUnit}
             </Card.Content>
-            <MintCouponBox coupon={coupon}/>
+            <MintCouponBox walletAddress={walletAddress} coupon={coupon}/>
         </Card>
     )
 }
