@@ -31,9 +31,10 @@ const ReceiveCouponBox = ({walletAddress, couponUsageList, setCouponUsageList}) 
                 <Header as='h3' verticalAlign="middle">
                     {blink ? (
                         <Icon.Group size='big' className="blinking" style={{
+                            color: "#FFB84C",
                             cursor: "grab"
                         }}>
-                            <Icon name='bell' />
+                            <Icon name='bell'/>
                         </Icon.Group>
                     ) : (
                         <Icon.Group size='big' style={{
