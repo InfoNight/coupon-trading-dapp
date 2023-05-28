@@ -19,9 +19,7 @@ const RefreshCouponList = ({refreshCallback}) => {
 
     const onRefreshPressed = async () => {
         setLoading(true);
-
         refreshCallback();
-        
         setLoading(false);
     };
 
