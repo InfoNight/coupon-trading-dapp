@@ -13,10 +13,10 @@ import {
     Modal,
     Grid,
     Segment
-  } from 'semantic-ui-react'
+} from 'semantic-ui-react'
 
 const CouponList = ({ walletAddress, couponList, setCouponList, setCouponUsageList }) => {
-    const refreshCallback = async() => {
+    const refreshCallback = async () => {
         const pinataResponse = await getPinList(walletAddress);
         if (pinataResponse.success) {
             setCouponList(pinataResponse.pinList);
@@ -36,12 +36,10 @@ const CouponList = ({ walletAddress, couponList, setCouponList, setCouponUsageLi
         <Grid divided='vertically'>
             <Grid.Row columns={1}>
                 <Grid.Column>
-                    <Header as='h3' style={{ display: "flex", justifyContent: "center", position: "relative", paddingRight: "100" }}>
-                        <div>
-                        <RegisterCouponBox walletAddress={walletAddress} />
+                    <Header as='h3' style={{ display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
+                            <RegisterCouponBox walletAddress={walletAddress} />
                             &nbsp;
                             Coupon types
-                        </div>
                         <view style={{ position: 'absolute', right: '5%' }}>
                             <RefreshCouponList refreshCallback={refreshCallback} />
                         </view>
