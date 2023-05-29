@@ -91,19 +91,19 @@ const App = () => {
                 <List.Item>
                   <Icon name='computer' />
                   <List.Content>
-                    <List.Header>Free yourself from offline coupon</List.Header>
+                    <List.Header>Liberate yourself from offline coupons</List.Header>
                   </List.Content>
                 </List.Item>
                 <List.Item>
                   <Icon name='world' />
                   <List.Content>
-                    <List.Header>No contracts with centralized platforms</List.Header>
+                    <List.Header>Avoid contracts with centralized platforms</List.Header>
                   </List.Content>
                 </List.Item>
                 <List.Item>
                   <Icon name='wi-fi' />
                   <List.Content>
-                    <List.Header>Promote your brand using NFT</List.Header>
+                    <List.Header>Freely establish and promote your brand online</List.Header>
                   </List.Content>
                 </List.Item>
               </List>

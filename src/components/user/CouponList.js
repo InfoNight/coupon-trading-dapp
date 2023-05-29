@@ -23,6 +23,7 @@ const CouponList = ({ couponList, setCouponList }) => {
         } 
     }
     return (
+        <div>
         <Grid divided='vertically'>
             <Grid.Row columns={1}>
                 <Grid.Column>
@@ -38,6 +39,8 @@ const CouponList = ({ couponList, setCouponList }) => {
                     </Header>
                 </Grid.Column>
             </Grid.Row>
+        </Grid>
+        <Grid centered={true}>
             {couponList.length === 0 ? (
                 <Container width="100%" style={{ margin: "10px" }}>
                     <Header as='h3' style={{ textAlign: "center" }}>
@@ -47,8 +50,9 @@ const CouponList = ({ couponList, setCouponList }) => {
             ) : (
                 couponList.map((coupon) => (
                     <Coupon coupon={coupon} />
-                )))}
+                    )))}
         </Grid>
+        </div>
     )
 }
 

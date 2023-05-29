@@ -33,6 +33,7 @@ const CouponList = ({ walletAddress, couponList, setCouponList, setCouponUsageLi
     }
 
     return (
+        <div>
         <Grid divided='vertically'>
             <Grid.Row columns={1}>
                 <Grid.Column>
@@ -46,6 +47,8 @@ const CouponList = ({ walletAddress, couponList, setCouponList, setCouponUsageLi
                     </Header>
                 </Grid.Column>
             </Grid.Row>
+        </Grid>
+        <Grid centered={true}>
             {couponList.length === 0 ? (
                 <Container width="100%" style={{ margin: "10px" }}>
                     <Header as='h3' style={{ textAlign: "center" }}>
@@ -57,6 +60,7 @@ const CouponList = ({ walletAddress, couponList, setCouponList, setCouponUsageLi
                     <Coupon walletAddress={walletAddress} coupon={coupon} />
                 )))}
         </Grid>
+        </div>
     )
 }
 
